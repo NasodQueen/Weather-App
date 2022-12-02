@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <span class="to-do"> To do: </span>
+      <ul class="to-do">
+        <li>Format time to always show 2-digit hours and minutes</li>
+        <li>Add °C/°F toggle switch</li>
+        <li>Add km/h / mph toggle switch</li>
+        <li>Create colors sets for different weather</li>
+        <li>
+          Create buttons to switch color sets/weather to for demonstration
+          purposes
+        </li>
+        <li>Add background colors/patterns</li>
+        <li>Create a light/dark mode with switch</li>
+      </ul>
+      <div class="main-body">
+        <div class="header row">
+          <div class="header-notice col-4">
+            <h3 id="header-notice-advice">
+              Make sure to bring an umbrella with you today!
+            </h3>
+          </div>
+          <div class="header-city-weather col-6">
+            <div class="header-city-weather-position">
+              <h1 id="city-name">Schwarzenburg</h1>
+              <h2 id="date-and-time">Thursday, 12:47</h2>
+              <h2>
+                <span id="header-weather-text">Rainy</span> |
+                <span id="header-temperature-degrees">11</span>
+                <span id="header-temperature-unit">°C</span>
+              </h2>
+            </div>
+          </div>
+          <div class="header-weather-icon col-2">
+            <h1><i class="bi bi-cloud-drizzle"></i></h1>
+          </div>
+        </div>
+        <div class="midBodyContainer row">
+          <div class="midBodyLeft col-9">
+            <form id="citySearchForm" class="row">
+              <div class="textInput col-7">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder=" Enter a city..."
+                />
+              </div>
+              <button
+                type="submit"
+                id="search-button"
+                class="btn btn-primary col-2 p-2"
+              >
+                Search
+              </button>
+              <button
+                type="submit"
+                id="current-city-button"
+                class="btn btn-primary col-2 p-2"
+              >
+                Current
+              </button>
+            </form>
+            <div class="citiesRecentPopular row">
+              <div class="recentCities col">
+                <h4>Recently searched cities:</h4>
+                Bern, Warminster, Orlando, ...
+              </div>
+              <div class="popularCities col">
+                <h4>Popular cities:</h4>
+                New York City, Paris, Tokyo, ...
+              </div>
+            </div>
+          </div>
+          <div class="additionalInfo col-3">
+            <div class="additionalInfoRow row">
+              <div class="additionalInfoColLeft col">
+                11°C <i class="bi bi-thermometer-half"> </i><br />
+                11°C|2°C <i class="bi bi-speedometer2"> </i> <br />
+                86% <i class="bi bi-cloud-rain-fill"> </i><br />
+                79% <i class="bi bi-moisture"></i> <br />
+              </div>
+              <div class="additionalInfoColRight col">
+                <i class="bi bi-wind"></i> <span id="wind-speed">3</span>
+                <span id="wind-speed-unit">km/h</span> <br />
+                <i class="bi bi-sunrise-fill"> 07:15</i> <br />
+                <i class="bi bi-sunset-fill"> 17:11</i> <br />
+                <i class="bi bi-sunglasses"> 2</i><br />
+              </div>
+              <i class="bi bi-moon-fill">Waxing Gibbous</i>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="fiveDayForcast row">
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">Friday</h5>
+              <i class="bi bi-brightness-high"></i>
+              <p class="card-text">12°C | 3°C</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">Saturday</h5>
+              <i class="bi bi-cloud-sun"></i>
+              <p class="card-text">8°C | 3°C</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">Sunday</h5>
+              <i class="bi bi-cloud-rain-heavy"></i>
+              <p class="card-text">8°C | 0°C</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">Monday</h5>
+              <i class="bi bi-cloud-fog"></i>
+              <p class="card-text">11°C | 4°C</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">Tuesday</h5>
+              <i class="bi bi-clouds"></i>
+              <p class="card-text">13°C | 3°C</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form id="formSettings" class="row">
+        <div id="temperature-toggle" class="col-2">
+          <span>°C</span>
+          <label class="toggle" name="" for="unitToggle">
+            <input
+              class="toggle__input"
+              type="checkbox"
+              id="unitToggle"
+              onclick="unitIsChecked()"
+            />
+            <div class="toggle__fill"></div>
+          </label>
+          <span>°F</span>
+        </div>
+      </form>
+    </div>
+    <script src="src/index.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/b29d244e1c.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

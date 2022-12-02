@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #015c92;
+}
+
+.main-body {
+  background-color: #53a6d8;
+  padding: 20px 30px;
+  border-radius: 15px;
+  position: relative;
+  max-width: 1140px;
+}
+
+.btn-primary {
+  margin: 5px 10px;
+  border-radius: 50px;
+  text-align: center;
+  background-color: #bce6ff;
+  color: #015c92;
+  font-weight: bold;
+  border: 3px solid #2d82b5;
+}
+
+.btn-primary:hover {
+  background-color: #88cdf6;
+  border: 3px solid #015c92;
+  color: #015c92;
+}
+
+#inputCity {
+  background-color: #bce6ff;
+  color: #015c92;
+  border: 3px solid #2d82b5;
+  font-weight: bold;
+  max-width: 450px;
+}
+
+#inputCity::placeholder {
+  color: #015c92;
+}
+
+#inputCity:placeholder {
+  color: #015c92;
+}
+
+.form-control {
+  margin: 5px 10px;
+  margin-right: 20px;
+  padding: 8px;
+  border-radius: 50px;
+}
+
+.header-city-weather {
+  text-align: right;
+  padding: 0;
+}
+
+.header-city-weather-position {
+  position: absolute;
+  right: 210px;
+  padding-top: 5px;
+}
+
+h1 .bi {
+  font-size: 115px;
+  background-color: #bce6ff;
+  color: #015c92;
+  border: 10px solid #015c92;
+  border-radius: 50%;
+  padding: 15px 27px;
+  position: absolute;
+  right: 20px;
+  top: 25px;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+h3 {
+  font-weight: 900;
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
+  font-weight: bold;
+}
+
+i {
+  font-style: normal;
+}
+
+.header {
+  margin: 20px 0;
+  margin-right: 25px;
+  background-color: #015c92;
+  color: #bce6ff;
+  border-radius: 15px;
+  min-height: 155px;
+}
+
+.header-notice {
+  margin-top: 27px;
+}
+
+.midBodyContainer {
+  margin-top: 50px;
+}
+
+.citiesRecentPopular {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.recentCities,
+.popularCities {
+  padding: 10px 10px 10px 24px;
+  background-color: #bce6ff;
+  border-radius: 50px;
+  margin-right: 20px;
+  max-width: 400px;
+}
+
+.bi-moon-fill {
+  text-align: center;
+}
+
+.additionalInfo {
+  background-color: #015c92;
+  color: #bce6ff;
+  border-radius: 15px;
+  padding: 10px 0 0 0;
+}
+
+.additionalInfoColLeft {
+  text-align: right;
+  border-right: 3px dotted #88cdf6;
+  padding: 0 10px 0 0;
+}
+
+.additionalInfoColRight {
+  padding: 0 0 0 10px;
+}
+
+.card {
+  text-align: center;
+  border-radius: 15px;
+  background-color: #88cdf6;
+  color: #015c92;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.card h5 {
+  margin-bottom: 20px;
+  font-weight: bold;
+  background-color: #53a6d8;
+  border-radius: 15px;
+  padding: 5px 0;
+}
+
+.card .bi {
+  font-size: 40px;
+  background-color: #bce6ff;
+  border: 5px solid #2d82b5;
+  border-radius: 50%;
+  padding: 5px 13px;
+}
+
+.card-text {
+  margin-top: 20px;
+}
+
+hr {
+  border: 5px dashed #bce6ff;
+  border-radius: 10px;
+  margin: 25px 0;
+}
+
+.to-do {
+  font-size: 12px;
+}
+
+.toggle {
+  --width: 40px;
+  --height: calc(var(--width) / 2);
+  --border-radius: calc(var(--height) / 2);
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* hiding the checkbox*/
+.toggle__input {
+  display: none;
+}
+
+.toggle__fill {
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--border-radius);
+  background-color: #015c92;
+  transition: background-color 0.2s;
+}
+
+/* Change to color of the background after the switch has been toggled
+.toggle__input:checked ~ .toggle__fill {
+  background-color: #53a6d8;
+}
+*/
+
+/* Creating the toggle circle*/
+.toggle__fill::after {
+  content: ""; /* Allows for the circle to be displayed*/
+  position: absolute; /* Allows for correct placement of the circle according to the parent*/
+  top: 0;
+  left: 0;
+  height: var(--height);
+  width: var(--height);
+  background-color: #53a6d8;
+  border: 3px solid #53a6d8;
+  border-radius: var(--border-radius);
+  transition: transform 0.2s;
+}
+
+/* Moving the circle when switch has been toggled*/
+.toggle__input:checked ~ .toggle__fill::after {
+  transform: translateX(var(--height));
+}
+
+#formSettings {
+  margin-top: 10px;
+}
