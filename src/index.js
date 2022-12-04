@@ -96,7 +96,7 @@ function showWeather(response) {
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind-speed").innerHTML = Math.round(
-    response.data.wind.speed
+    response.data.wind.speed * 3.6
   );
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
