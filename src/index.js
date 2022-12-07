@@ -100,6 +100,7 @@ function showWeather(response) {
   );
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
+  let timezone = response.data.timezone;
   function convertSunrise() {
     let sunriseTime = new Date(sunriseUnix * 1000);
     let sunriseHours = sunriseTime.getHours();

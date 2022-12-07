@@ -106,7 +106,14 @@ i {
 }
 
 .header-notice {
-  margin-top: 27px;
+  height: 155px;
+  line-height: 155px;
+}
+
+#header-notice-advice {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
 }
 
 .midBodyContainer {
@@ -208,7 +215,6 @@ hr {
   height: var(--height);
   border-radius: var(--border-radius);
   background-color: #015c92;
-  transition: background-color 0.2s;
 }
 
 /* Change to color of the background after the switch has been toggled
@@ -236,10 +242,11 @@ hr {
   transform: translateX(var(--height));
 }
 
-#formSettings {
-  margin-top: 10px;
+.temperature-toggle-units {
+  font-weight: bold;
 }
 
 #footer {
   margin-top: 30px;
+  font-size: 12px;
 }
