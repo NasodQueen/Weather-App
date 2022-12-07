@@ -73,11 +73,61 @@ let apiKey = "c6ca586286ea213d4f29918b81fd9858";
 let apiUrlBase = "https://api.openweathermap.org/data/2.5/weather?";
 let lunarPhase = document.querySelector("#lunar-phase");
 
+let weatherSet = {
+  "11d": {
+    name: "Thunder",
+    icon: "bi-cloud-lightning",
+    class: "blue",
+  },
+  "09d": {
+    name: "Drizzle",
+    icon: "bi-cloud-drizzle",
+    class: "blue",
+  },
+  "10d": {
+    name: "Rain",
+    icon: "bi-cloud-rain",
+    class: "blue",
+  },
+  "13d": {
+    name: "Snow",
+    icon: "bi-snow2",
+    class: "white",
+  },
+  "50d": {
+    name: "Mist",
+    icon: "bi-cloud-haze2",
+    class: "gray",
+  },
+  "01d": {
+    name: "Clear",
+    icon: "bi-sun",
+    class: "sunshine",
+  },
+  "02d": {
+    name: "Few Clouds",
+    icon: "bi-cloud-sun",
+    class: "gray",
+  },
+  "03d": {
+    name: "Scattered Clouds",
+    icon: "bi-cloudy",
+    class: "gray",
+  },
+  "04d": {
+    name: "Overcast",
+    icon: "bi-clouds",
+    class: "gray",
+  },
+};
+
 function showWeather(response) {
   console.log(response);
   //get "main" weather to use for color changes
   let currentWeatherMain = response.data.weather[0].main;
   console.log(currentWeatherMain);
+  let currentWeatherID = String(response.data.weather[0].icon);
+  console.log(weatherSet[currentWeatherID].icon);
   //Get data & change HTML
   document.querySelector("#city-name").innerHTML = response.data.name;
   document.querySelector("#header-weather-text").innerHTML =
