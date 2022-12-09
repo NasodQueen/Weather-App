@@ -242,9 +242,9 @@ hr {
   transform: translateX(var(--height));
 }
 
-.temperature-toggle-units {
+/* .temperature-toggle-units {
   font-weight: bold;
-}
+} */
 
 #footer {
   margin-top: 30px;

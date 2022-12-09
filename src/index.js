@@ -73,6 +73,7 @@ let apiKey = "c6ca586286ea213d4f29918b81fd9858";
 let apiUrlBase = "https://api.openweathermap.org/data/2.5/weather?";
 let lunarPhase = document.querySelector("#lunar-phase");
 
+//Create weather set of possible icons from OpenWeatherAPI to use for my own icons and the color sets
 let weatherSet = {
   "11d": {
     name: "Thunder",
@@ -96,6 +97,11 @@ let weatherSet = {
   },
   "50d": {
     name: "Mist",
+    icon: "bi-cloud-haze2",
+    class: "gray",
+  },
+  "50n": {
+    name: "Smoke",
     icon: "bi-cloud-haze2",
     class: "gray",
   },
@@ -123,11 +129,6 @@ let weatherSet = {
 
 function showWeather(response) {
   console.log(response);
-  //get "main" weather to use for color changes
-  let currentWeatherMain = response.data.weather[0].main;
-  console.log(currentWeatherMain);
-  let currentWeatherID = String(response.data.weather[0].icon);
-  console.log(weatherSet[currentWeatherID].icon);
   //Get data & change HTML
   document.querySelector("#city-name").innerHTML = response.data.name;
   document.querySelector("#header-weather-text").innerHTML =
@@ -150,9 +151,12 @@ function showWeather(response) {
   );
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
-  let timezone = response.data.timezone;
+  let timezoneOffset = response.data.timezone * 1000;
+  console.log(timezoneOffset);
   function convertSunrise() {
     let sunriseTime = new Date(sunriseUnix * 1000);
+    let sunriseString = sunriseTime.toLocaleTimeString();
+    console.log(sunriseString);
     let sunriseHours = sunriseTime.getHours();
     if (sunriseHours < 10) {
       sunriseHours = `0${sunriseHours}`;
@@ -182,6 +186,21 @@ function showWeather(response) {
   }
   document.querySelector("#sunset").innerHTML = convertSunset();
   document.querySelector("#lunar-phase").innerHTML = getLunarPhase();
+  //get "main" weather to use for color changes
+  let currentWeatherMain = response.data.weather[0].main;
+  console.log(currentWeatherMain);
+  let currentWeatherID = String(response.data.weather[0].icon);
+  console.log(weatherSet[currentWeatherID].icon);
+  //Remove any class for the icons that start with "bi-"
+  let headerIcon = document.querySelector("#header-icon");
+  headerIcon.classList.forEach((item) => {
+    if (item.startsWith("bi-")) {
+      headerIcon.classList.remove(item);
+    }
+  });
+  //Add the current weather icon
+  headerIcon.classList.add(weatherSet[currentWeatherID].icon);
+  console.log(headerIcon.classList);
 }
 
 function searchCity(city) {
