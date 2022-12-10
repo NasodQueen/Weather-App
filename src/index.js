@@ -30,7 +30,8 @@ let weekdayToday = weekdays[now.getDay()];
 let weekdayTodayText = document.querySelector("#date-and-time");
 weekdayTodayText.innerHTML = `${weekdayToday}, ${hours}:${minutes}`;
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response);
   let forecastElement = document.querySelector("#weather-forecast");
 
   let forecastHTML = `<div class="fiveDayForcast row">`;
@@ -97,6 +98,8 @@ const getLunarPhase = (date = new Date()) => {
 
 let apiKey = "c6ca586286ea213d4f29918b81fd9858";
 let apiUrlBase = "https://api.openweathermap.org/data/2.5/weather?";
+let apiKeyForecast = "57b2c40fdae71a6ba41d72685e3226e2";
+let apiUrlForecastBase = "https://api.openweathermap.org/data/2.5/onecall?";
 let lunarPhase = document.querySelector("#lunar-phase");
 
 //Create weather set of possible icons from OpenWeatherAPI to use for my own icons and the color sets
@@ -202,6 +205,11 @@ let minTempHTML = document.querySelector("#min-temp");
 let humidityHTML = document.querySelector("#humidity");
 let windHTML = document.querySelector("#wind-speed");
 
+function getForecast(coordinates) {
+  let apiUrlForecast = `${apiUrlForecastBase}lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=current,minutely,hourly&appid=${apiKeyForecast}&units={metric}`;
+  axios.get(apiUrlForecast).then(displayForecast);
+}
+
 function showWeather(response) {
   console.log(response);
   //Get data & change HTML
@@ -269,6 +277,7 @@ function showWeather(response) {
   //Add the current weather icon
   headerIcon.classList.add(weatherSet[currentWeatherID].icon);
   console.log(headerIcon.classList);
+  getForecast(response.data.coord);
 }
 
 function searchCity(city) {
