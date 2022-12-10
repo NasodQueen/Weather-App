@@ -159,6 +159,7 @@ i {
 .card {
   text-align: center;
   border-radius: 15px;
+  border: none;
   background-color: #88cdf6;
   color: #015c92;
   margin-left: 10px;
@@ -183,6 +184,7 @@ i {
 
 .card-text {
   margin-top: 20px;
+  font-size: 20px;
 }
 
 hr {

@@ -30,6 +30,32 @@ let weekdayToday = weekdays[now.getDay()];
 let weekdayTodayText = document.querySelector("#date-and-time");
 weekdayTodayText.innerHTML = `${weekdayToday}, ${hours}:${minutes}`;
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="fiveDayForcast row">`;
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="card col">
+              <div class="card-body">
+                <h5 class="card-title">${day}</h5>
+                <i class="bi bi-brightness-high"></i>
+                <p class="card-text">
+                  <span class="forecast-max-temp">12</span
+                  ><span class="temp-unit">°C</span> |
+                  <span class="forecast-min-temp">3</span
+                  ><span class="temp-unit">°C</span>
+                </p>
+              </div>
+            </div>`;
+  });
+
+  forecastHTML = forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 //Lunar Phase Calculations - https://jasonsturges.medium.com/moons-lunar-phase-in-javascript-a5219acbfe6e
 //Obtain Julian Date
 const getJulianDate = (date = new Date()) => {
@@ -314,16 +340,7 @@ let celciusTemperature = null;
 let feelsLikeTemperature = null;
 let maxTemperature = null;
 let minTemperature = null;
-let forecast1MaxTemp = null;
-let forecast1MinTemp = null;
-let forecast2MaxTemp = null;
-let forecast2MinTemp = null;
-let forecast3MaxTemp = null;
-let forecast3MinTemp = null;
-let forecast4MaxTemp = null;
-let forecast4MinTemp = null;
-let forecast5MaxTemp = null;
-let forecast5MinTemp = null;
 
 //Search on load
 searchCity(`Bern`);
+displayForecast();

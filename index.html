@@ -34,6 +34,7 @@
         <li>Add the mechanism to store recent user inputs (up to 3-ish)</li>
         <li>Add popular cities as clickable links</li>
         <li>Add forecast data</li>
+        <li>Add hover text for detailed info box</li>
       </ul>
       <div class="main-body">
         <div class="header row">
@@ -122,63 +123,7 @@
           </div>
         </div>
         <hr />
-        <div class="fiveDayForcast row">
-          <div class="card col">
-            <div class="card-body">
-              <h5 class="card-title">Friday</h5>
-              <i class="bi bi-brightness-high"></i>
-              <p class="card-text">
-                12 <span class="temp-unit">°C</span> | 3<span class="temp-unit"
-                  >°C</span
-                >
-              </p>
-            </div>
-          </div>
-          <div class="card col">
-            <div class="card-body">
-              <h5 class="card-title">Saturday</h5>
-              <i class="bi bi-cloud-sun"></i>
-              <p class="card-text">
-                8<span class="temp-unit">°C</span> | 3<span class="temp-unit"
-                  >°C</span
-                >
-              </p>
-            </div>
-          </div>
-          <div class="card col">
-            <div class="card-body">
-              <h5 class="card-title">Sunday</h5>
-              <i class="bi bi-cloud-rain-heavy"></i>
-              <p class="card-text">
-                8<span class="temp-unit">°C</span> | 0<span class="temp-unit"
-                  >°C</span
-                >
-              </p>
-            </div>
-          </div>
-          <div class="card col">
-            <div class="card-body">
-              <h5 class="card-title">Monday</h5>
-              <i class="bi bi-cloud-fog"></i>
-              <p class="card-text">
-                11<span class="temp-unit">°C</span> | 4<span class="temp-unit"
-                  >°C</span
-                >
-              </p>
-            </div>
-          </div>
-          <div class="card col">
-            <div class="card-body">
-              <h5 class="card-title">Tuesday</h5>
-              <i class="bi bi-clouds"></i>
-              <p class="card-text">
-                13<span class="temp-unit">°C</span> | 3<span class="temp-unit"
-                  >°C</span
-                >
-              </p>
-            </div>
-          </div>
-        </div>
+        <div id="weather-forecast"></div>
       </div>
       <form id="formSettings" class="row">
         <div id="temperature-toggle" class="col-2">
