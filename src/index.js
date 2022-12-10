@@ -80,7 +80,17 @@ let weatherSet = {
     icon: "bi-cloud-lightning",
     class: "blue",
   },
+  "11n": {
+    name: "Thunder",
+    icon: "bi-cloud-lightning",
+    class: "blue",
+  },
   "09d": {
+    name: "Drizzle",
+    icon: "bi-cloud-drizzle",
+    class: "blue",
+  },
+  "09n": {
     name: "Drizzle",
     icon: "bi-cloud-drizzle",
     class: "blue",
@@ -90,7 +100,17 @@ let weatherSet = {
     icon: "bi-cloud-rain",
     class: "blue",
   },
+  "10n": {
+    name: "Rain",
+    icon: "bi-cloud-rain",
+    class: "blue",
+  },
   "13d": {
+    name: "Snow",
+    icon: "bi-snow2",
+    class: "white",
+  },
+  "13n": {
     name: "Snow",
     icon: "bi-snow2",
     class: "white",
@@ -110,7 +130,17 @@ let weatherSet = {
     icon: "bi-sun",
     class: "sunshine",
   },
+  "01n": {
+    name: "Clear",
+    icon: "bi-sun",
+    class: "sunshine",
+  },
   "02d": {
+    name: "Few Clouds",
+    icon: "bi-cloud-sun",
+    class: "gray",
+  },
+  "02n": {
     name: "Few Clouds",
     icon: "bi-cloud-sun",
     class: "gray",
@@ -120,35 +150,47 @@ let weatherSet = {
     icon: "bi-cloudy",
     class: "gray",
   },
+  "03n": {
+    name: "Scattered Clouds",
+    icon: "bi-cloudy",
+    class: "gray",
+  },
   "04d": {
+    name: "Overcast",
+    icon: "bi-clouds",
+    class: "gray",
+  },
+  "04n": {
     name: "Overcast",
     icon: "bi-clouds",
     class: "gray",
   },
 };
 
+let cityNameHTML = document.querySelector("#city-name");
+let mainWeatherTextHTMl = document.querySelector("#header-weather-text");
+let mainTemperatureHTML = document.querySelector("#header-temperature-degrees");
+let feelsLikeHTML = document.querySelector("#feels-like-temp");
+let maxTempHTML = document.querySelector("#max-temp");
+let minTempHTML = document.querySelector("#min-temp");
+let humidityHTML = document.querySelector("#humidity");
+let windHTML = document.querySelector("#wind-speed");
+
 function showWeather(response) {
   console.log(response);
   //Get data & change HTML
-  document.querySelector("#city-name").innerHTML = response.data.name;
-  document.querySelector("#header-weather-text").innerHTML =
-    response.data.weather[0].description;
-  document.querySelector("#header-temperature-degrees").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#feels-like-temp").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
-  document.querySelector("#max-temp").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
-  document.querySelector("#min-temp").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
-  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind-speed").innerHTML = Math.round(
-    response.data.wind.speed * 3.6
-  );
+  cityNameHTML.innerHTML = response.data.name;
+  mainWeatherTextHTMl.innerHTML = response.data.weather[0].description;
+  celciusTemperature = Math.round(response.data.main.temp);
+  mainTemperatureHTML.innerHTML = celciusTemperature;
+  feelsLikeTemperature = Math.round(response.data.main.feels_like);
+  feelsLikeHTML.innerHTML = feelsLikeTemperature;
+  maxTemperature = Math.round(response.data.main.temp_max);
+  maxTempHTML.innerHTML = maxTemperature;
+  minTemperature = Math.round(response.data.main.temp_min);
+  minTempHTML.innerHTML = minTemperature;
+  humidityHTML.innerHTML = response.data.main.humidity;
+  windHTML.innerHTML = Math.round(response.data.wind.speed * 3.6);
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
   let timezoneOffset = response.data.timezone * 1000;
@@ -241,27 +283,47 @@ function geolocate(event) {
 let buttonCurrentPosition = document.querySelector("#current-city-button");
 buttonCurrentPosition.addEventListener("click", geolocate);
 
-let temperatureUnit = `metric`;
-
 //Switch between Celcius and Fahrenheit
 function handleUnit() {
   let temperatureUnitText = document.querySelectorAll("span.temp-unit");
   if (document.querySelector("#unitToggle").checked) {
+    let fahrenheitTemperature = Math.round((celciusTemperature * 9) / 5 + 32);
+    mainTemperatureHTML.innerHTML = fahrenheitTemperature;
+    let feelsLikeFahrenheit = Math.round((feelsLikeTemperature * 9) / 5 + 32);
+    feelsLikeHTML.innerHTML = feelsLikeFahrenheit;
+    let maxTempFahrenheit = Math.round((maxTemperature * 9) / 5 + 32);
+    maxTempHTML.innerHTML = maxTempFahrenheit;
+    let minTempFahrenheit = Math.round((minTemperature * 9) / 5 + 32);
+    minTempHTML.innerHTML = minTempFahrenheit;
     temperatureUnitText.forEach(function (span) {
       span.innerHTML = "°F";
     });
-    temperatureUnit = `imperial`;
-    console.log(temperatureUnit);
-    return temperatureUnit;
   } else {
+    mainTemperatureHTML.innerHTML = celciusTemperature;
+    feelsLikeHTML.innerHTML = feelsLikeTemperature;
+    maxTempHTML.innerHTML = maxTemperature;
+    minTempHTML.innerHTML = minTemperature;
     temperatureUnitText.forEach(function (span) {
       span.innerHTML = "°C";
     });
-    temperatureUnit = `metric`;
-    console.log(temperatureUnit);
-    return temperatureUnit;
   }
 }
+
+//Setting up variables for the conversion between °C and °F
+let celciusTemperature = null;
+let feelsLikeTemperature = null;
+let maxTemperature = null;
+let minTemperature = null;
+let forecast1MaxTemp = null;
+let forecast1MinTemp = null;
+let forecast2MaxTemp = null;
+let forecast2MinTemp = null;
+let forecast3MaxTemp = null;
+let forecast3MinTemp = null;
+let forecast4MaxTemp = null;
+let forecast4MinTemp = null;
+let forecast5MaxTemp = null;
+let forecast5MinTemp = null;
 
 //Search on load
 searchCity(`Bern`);
