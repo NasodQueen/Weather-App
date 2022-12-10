@@ -30,27 +30,39 @@ let weekdayToday = weekdays[now.getDay()];
 let weekdayTodayText = document.querySelector("#date-and-time");
 weekdayTodayText.innerHTML = `${weekdayToday}, ${hours}:${minutes}`;
 
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  return weekdays[day];
+}
+
 function displayForecast(response) {
   console.log(response);
-  let forecastElement = document.querySelector("#weather-forecast");
+  let forecast = response.data.daily;
 
-  let forecastHTML = `<div class="fiveDayForcast row">`;
+  //Add day cards to the forecast and change the HTML
+  let forecastElement = document.querySelector("#weather-forecast");
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="card col">
-              <div class="card-body">
-                <h5 class="card-title">${day}</h5>
-                <i class="bi bi-brightness-high"></i>
-                <p class="card-text">
-                  <span class="forecast-max-temp">12</span
-                  ><span class="temp-unit">°C</span> |
-                  <span class="forecast-min-temp">3</span
-                  ><span class="temp-unit">°C</span>
-                </p>
-              </div>
-            </div>`;
+  let forecastHTML = `<div class="fiveDayForcast row">`;
+  let weatherID = "";
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      weatherID = String(forecastDay.weather[0].icon);
+      forecastHTML =
+        forecastHTML +
+        `<div class="card col">
+    <div class="card-body">
+    <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
+    <i id="weather-icon" class="bi ${weatherSet[weatherID].icon}"></i>
+    <p class="card-text">
+    <span class="forecast-max-temp">${Math.round(forecastDay.temp.max)}</span
+    ><span class="temp-unit">°C</span> |
+    <span class="forecast-min-temp">${Math.round(forecastDay.temp.min)}</span
+    ><span class="temp-unit">°C</span>
+    </p>
+    </div>
+    </div>`;
+    }
   });
 
   forecastHTML = forecastHTML = forecastHTML + `</div>`;
@@ -206,7 +218,7 @@ let humidityHTML = document.querySelector("#humidity");
 let windHTML = document.querySelector("#wind-speed");
 
 function getForecast(coordinates) {
-  let apiUrlForecast = `${apiUrlForecastBase}lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=current,minutely,hourly&appid=${apiKeyForecast}&units={metric}`;
+  let apiUrlForecast = `${apiUrlForecastBase}lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=current,minutely,hourly&appid=${apiKeyForecast}&units=metric`;
   axios.get(apiUrlForecast).then(displayForecast);
 }
 
@@ -262,7 +274,7 @@ function showWeather(response) {
   }
   document.querySelector("#sunset").innerHTML = convertSunset();
   document.querySelector("#lunar-phase").innerHTML = getLunarPhase();
-  //get "main" weather to use for color changes
+  //Get "main" weather to use for color changes
   let currentWeatherMain = response.data.weather[0].main;
   console.log(currentWeatherMain);
   let currentWeatherID = String(response.data.weather[0].icon);
@@ -352,4 +364,3 @@ let minTemperature = null;
 
 //Search on load
 searchCity(`Bern`);
-displayForecast();
