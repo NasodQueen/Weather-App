@@ -36,17 +36,20 @@ function formatForecastDay(timestamp) {
   return weekdays[day];
 }
 
-function displayForecast(response) {
+function displayForecast(response, unit) {
   console.log(response);
   let forecast = response.data.daily;
 
   //Add day cards to the forecast and change the HTML
   let forecastElement = document.querySelector("#weather-forecast");
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
   let forecastHTML = `<div class="fiveDayForcast row">`;
   let weatherID = "";
   forecast.forEach(function (forecastDay, index) {
-    if (index < 5) {
+    let celciusMax = Math.round(forecastDay.temp.max);
+    let celciusMin = Math.round(forecastDay.temp.min);
+    let fahrenheitMax = Math.round((celciusMax * 9) / 5 + 32);
+    let fahrenheitMin = Math.round((celciusMin * 9) / 5 + 32);
+    if (index < 6 && index > 0) {
       weatherID = String(forecastDay.weather[0].icon);
       forecastHTML =
         forecastHTML +
@@ -55,9 +58,9 @@ function displayForecast(response) {
     <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
     <i id="weather-icon" class="bi ${weatherSet[weatherID].icon}"></i>
     <p class="card-text">
-    <span class="forecast-max-temp">${Math.round(forecastDay.temp.max)}</span
+    <span class="forecast-max-temp">${Math.round(celciusMax)}</span
     ><span class="temp-unit">°C</span> |
-    <span class="forecast-min-temp">${Math.round(forecastDay.temp.min)}</span
+    <span class="forecast-min-temp">${Math.round(celciusMin)}</span
     ><span class="temp-unit">°C</span>
     </p>
     </div>
@@ -65,7 +68,7 @@ function displayForecast(response) {
     }
   });
 
-  forecastHTML = forecastHTML = forecastHTML + `</div>`;
+  forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
 
@@ -108,6 +111,7 @@ const getLunarPhase = (date = new Date()) => {
   return "New";
 };
 
+//Set misc. variables for later
 let apiKey = "c6ca586286ea213d4f29918b81fd9858";
 let apiUrlBase = "https://api.openweathermap.org/data/2.5/weather?";
 let apiKeyForecast = "57b2c40fdae71a6ba41d72685e3226e2";
@@ -302,6 +306,8 @@ function searchCity(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#inputCity").value;
+  recentSearchArray.push(cityInput);
+  addRecentSearch();
   console.log(cityInput);
   searchCity(cityInput);
 }
@@ -332,18 +338,25 @@ buttonCurrentPosition.addEventListener("click", geolocate);
 
 //Switch between Celcius and Fahrenheit
 function handleUnit() {
-  let temperatureUnitText = document.querySelectorAll("span.temp-unit");
+  let temperatureUnitText = document.querySelectorAll(".temp-unit");
+  let forecastMax = document.querySelectorAll(".forecast-max-temp");
+  let forecastMin = document.querySelectorAll(".forecast-min-temp");
+  // let temperatureUnit = "metric";
   if (document.querySelector("#unitToggle").checked) {
-    let fahrenheitTemperature = Math.round((celciusTemperature * 9) / 5 + 32);
-    mainTemperatureHTML.innerHTML = fahrenheitTemperature;
-    let feelsLikeFahrenheit = Math.round((feelsLikeTemperature * 9) / 5 + 32);
-    feelsLikeHTML.innerHTML = feelsLikeFahrenheit;
-    let maxTempFahrenheit = Math.round((maxTemperature * 9) / 5 + 32);
-    maxTempHTML.innerHTML = maxTempFahrenheit;
-    let minTempFahrenheit = Math.round((minTemperature * 9) / 5 + 32);
-    minTempHTML.innerHTML = minTempFahrenheit;
+    mainTemperatureHTML.innerHTML = Math.round(
+      (celciusTemperature * 9) / 5 + 32
+    );
+    feelsLikeHTML.innerHTML = Math.round((feelsLikeTemperature * 9) / 5 + 32);
+    maxTempHTML.innerHTML = Math.round((maxTemperature * 9) / 5 + 32);
+    minTempHTML.innerHTML = Math.round((minTemperature * 9) / 5 + 32);
     temperatureUnitText.forEach(function (span) {
       span.innerHTML = "°F";
+    });
+    forecastMax.forEach(function (span) {
+      span.innerHTML = Math.round((span.innerHTML * 9) / 5 + 32);
+    });
+    forecastMin.forEach(function (span) {
+      span.innerHTML = Math.round((span.innerHTML * 9) / 5 + 32);
     });
   } else {
     mainTemperatureHTML.innerHTML = celciusTemperature;
@@ -353,8 +366,53 @@ function handleUnit() {
     temperatureUnitText.forEach(function (span) {
       span.innerHTML = "°C";
     });
+    forecastMax.forEach(function (span) {
+      span.innerHTML = Math.round(((span.innerHTML - 32) * 5) / 9);
+    });
+    forecastMin.forEach(function (span) {
+      span.innerHTML = Math.round(((span.innerHTML - 32) * 5) / 9);
+    });
   }
 }
+
+let recentSearchArray = [];
+console.log(recentSearchArray.length);
+
+function addRecentSearch(index) {
+  if (recentSearchArray.length < 4) {
+    let template = recentSearchArray
+      .map((city) => `<a href="#" id="${index}">${city}</a>`)
+      .join(` `);
+    document.querySelector("#recentCitiesSpan").innerHTML = template;
+    console.log(recentSearchArray.length);
+  } else {
+    recentSearchArray.shift();
+    let template = recentSearchArray
+      .map((city) => `<a href="#" id="${index}">${city}</a>`)
+      .join(` `);
+    document.querySelector("#recentCitiesSpan").innerHTML = template;
+    console.log(recentSearchArray.length);
+  }
+}
+
+//Popular Cities
+function newYorkSearch(event) {
+  event.preventDefault;
+  searchCity("New York");
+}
+function parisSearch(event) {
+  event.preventDefault;
+  searchCity("Paris");
+}
+function tokyoSearch(event) {
+  event.preventDefault;
+  searchCity("Tokyo");
+}
+document
+  .querySelector("#new-york-link")
+  .addEventListener("click", newYorkSearch);
+document.querySelector("#paris-link").addEventListener("click", parisSearch);
+document.querySelector("#tokyo-link").addEventListener("click", tokyoSearch);
 
 //Setting up variables for the conversion between °C and °F
 let celciusTemperature = null;
