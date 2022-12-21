@@ -36,7 +36,7 @@ function formatForecastDay(timestamp) {
   return weekdays[day];
 }
 
-function displayForecast(response, unit) {
+function displayForecast(response) {
   console.log(response);
   let forecast = response.data.daily;
 
@@ -47,8 +47,6 @@ function displayForecast(response, unit) {
   forecast.forEach(function (forecastDay, index) {
     let celciusMax = Math.round(forecastDay.temp.max);
     let celciusMin = Math.round(forecastDay.temp.min);
-    let fahrenheitMax = Math.round((celciusMax * 9) / 5 + 32);
-    let fahrenheitMin = Math.round((celciusMin * 9) / 5 + 32);
     if (index < 6 && index > 0) {
       weatherID = String(forecastDay.weather[0].icon);
       forecastHTML =
@@ -100,15 +98,15 @@ const normalize = (value) => {
 //apply percentages to get the lunar phase
 const getLunarPhase = (date = new Date()) => {
   const age = getLunarAge(date);
-  if (age < 1.84566) return "New";
+  if (age < 1.84566) return "New Moon";
   else if (age < 5.53699) return "Waxing Crescent Moon";
   else if (age < 9.22831) return "First Quarter Moon";
   else if (age < 12.91963) return "Waxing Gibbous Moon";
   else if (age < 16.61096) return "Full Moon";
   else if (age < 20.30228) return "Waning Gibbous Moon";
   else if (age < 23.99361) return "Last Quarter Moon";
-  else if (age < 27.68493) return "Waning Crescent";
-  return "New";
+  else if (age < 27.68493) return "Waning Crescent Moon";
+  return "New Moon";
 };
 
 //Set misc. variables for later
@@ -283,6 +281,9 @@ function showWeather(response) {
   console.log(currentWeatherMain);
   let currentWeatherID = String(response.data.weather[0].icon);
   console.log(weatherSet[currentWeatherID].icon);
+  let currentWeatherClass = weatherSet[currentWeatherID].class;
+  console.log(currentWeatherClass);
+  changeColors(currentWeatherClass);
   //Remove any class for the icons that start with "bi-"
   let headerIcon = document.querySelector("#header-icon");
   headerIcon.classList.forEach((item) => {
@@ -306,8 +307,10 @@ function searchCity(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#inputCity").value;
-  recentSearchArray.push(cityInput);
-  addRecentSearch();
+  if (!recentSearchArray.includes(cityInput)) {
+    recentSearchArray.push(cityInput);
+  }
+  addRecentSearch(cityInput);
   console.log(cityInput);
   searchCity(cityInput);
 }
@@ -378,17 +381,28 @@ function handleUnit() {
 let recentSearchArray = [];
 console.log(recentSearchArray.length);
 
-function addRecentSearch(index) {
+window.recentSearchLinkClick = function (obj) {
+  searchCity(obj.innerHTML);
+};
+
+function addRecentSearch(cityInput) {
+  let cityInputNoSpaces = cityInput.replace(/[\s;]+/g, "-").toLowerCase();
+  console.log(cityInputNoSpaces);
   if (recentSearchArray.length < 4) {
     let template = recentSearchArray
-      .map((city) => `<a href="#" id="${index}">${city}</a>`)
+      .map(
+        (city) =>
+          `<a href="#" onclick="recentSearchLinkClick(this)" class="recent-search-link-${cityInputNoSpaces}">${city}</a>`
+      )
       .join(` `);
+    console.log(recentSearchArray.indexOf(cityInput));
+    console.log(cityInput);
     document.querySelector("#recentCitiesSpan").innerHTML = template;
     console.log(recentSearchArray.length);
   } else {
     recentSearchArray.shift();
     let template = recentSearchArray
-      .map((city) => `<a href="#" id="${index}">${city}</a>`)
+      .map((city) => `<a href="#" class="recent-search-link">${city}</a>`)
       .join(` `);
     document.querySelector("#recentCitiesSpan").innerHTML = template;
     console.log(recentSearchArray.length);
@@ -404,15 +418,102 @@ function parisSearch(event) {
   event.preventDefault;
   searchCity("Paris");
 }
+function londonSearch(event) {
+  event.preventDefault;
+  searchCity("London");
+}
 function tokyoSearch(event) {
   event.preventDefault;
   searchCity("Tokyo");
+}
+function hongKongSearch(event) {
+  event.preventDefault;
+  searchCity("Hong Kong");
 }
 document
   .querySelector("#new-york-link")
   .addEventListener("click", newYorkSearch);
 document.querySelector("#paris-link").addEventListener("click", parisSearch);
+document.querySelector("#london-link").addEventListener("click", londonSearch);
 document.querySelector("#tokyo-link").addEventListener("click", tokyoSearch);
+document
+  .querySelector("#hong-kong-link")
+  .addEventListener("click", hongKongSearch);
+
+function changeColors(weatherClass) {
+  let currentWeatherClass = weatherClass;
+  let headerText = document.querySelector("#header-notice-advice");
+  console.log(currentWeatherClass);
+  if (currentWeatherClass === "sunshine") {
+    document.documentElement.style.setProperty("--first-color", "#C73866");
+    document.documentElement.style.setProperty("--second-color", "#FE676E");
+    document.documentElement.style.setProperty("--third-color", "#FD8F52");
+    document.documentElement.style.setProperty("--fourth-color", "#FFBD71");
+    document.documentElement.style.setProperty("--fifth-color", "#FFDCA2");
+    headerText.innerHTML = "Make sure to wear sunscreen today!";
+  } else {
+    if (currentWeatherClass === "blue") {
+      document.documentElement.style.setProperty("--first-color", "#015c92");
+      document.documentElement.style.setProperty("--second-color", "#2d82b5");
+      document.documentElement.style.setProperty("--third-color", "#53a6d8");
+      document.documentElement.style.setProperty("--fourth-color", "#88cdf6");
+      document.documentElement.style.setProperty("--fifth-color", "#bce6ff");
+      headerText.innerHTML = "Make sure to bring an umbrella with you today!";
+    } else {
+      if (currentWeatherClass === "gray") {
+        document.documentElement.style.setProperty("--first-color", "#4A707A");
+        document.documentElement.style.setProperty("--second-color", "#7697A0");
+        document.documentElement.style.setProperty("--third-color", "#94B0B7");
+        document.documentElement.style.setProperty("--fourth-color", "#C2C8C5");
+        document.documentElement.style.setProperty("--fifth-color", "#DDDDDA");
+        headerText.innerHTML = "Make sure to bring your own sunshine today!";
+      } else {
+        document.documentElement.style.setProperty("--first-color", "#9B9B9B");
+        document.documentElement.style.setProperty("--second-color", "#B6B6B6");
+        document.documentElement.style.setProperty("--third-color", "#D1D1D1");
+        document.documentElement.style.setProperty("--fourth-color", "#E7E7E7");
+        document.documentElement.style.setProperty("--fifth-color", "#ffffff");
+        headerText.innerHTML = "Make sure to bundle up and watch your step!";
+      }
+    }
+  }
+}
+
+let sunshineButton = document.querySelector("#sunshine-btn");
+sunshineButton.addEventListener("click", () => {
+  document.documentElement.style.setProperty("--first-color", "#C73866");
+  document.documentElement.style.setProperty("--second-color", "#FE676E");
+  document.documentElement.style.setProperty("--third-color", "#FD8F52");
+  document.documentElement.style.setProperty("--fourth-color", "#FFBD71");
+  document.documentElement.style.setProperty("--fifth-color", "#FFDCA2");
+});
+
+let rainButton = document.querySelector("#rain-btn");
+rainButton.addEventListener("click", () => {
+  document.documentElement.style.setProperty("--first-color", "#015c92");
+  document.documentElement.style.setProperty("--second-color", "#2d82b5");
+  document.documentElement.style.setProperty("--third-color", "#53a6d8");
+  document.documentElement.style.setProperty("--fourth-color", "#88cdf6");
+  document.documentElement.style.setProperty("--fifth-color", "#bce6ff");
+});
+
+let cloudyButton = document.querySelector("#cloudy-btn");
+cloudyButton.addEventListener("click", () => {
+  document.documentElement.style.setProperty("--first-color", "#4A707A");
+  document.documentElement.style.setProperty("--second-color", "#7697A0");
+  document.documentElement.style.setProperty("--third-color", "#94B0B7");
+  document.documentElement.style.setProperty("--fourth-color", "#C2C8C5");
+  document.documentElement.style.setProperty("--fifth-color", "#DDDDDA");
+});
+
+let snowButton = document.querySelector("#snow-btn");
+snowButton.addEventListener("click", () => {
+  document.documentElement.style.setProperty("--first-color", "#9B9B9B");
+  document.documentElement.style.setProperty("--second-color", "#B6B6B6");
+  document.documentElement.style.setProperty("--third-color", "#D1D1D1");
+  document.documentElement.style.setProperty("--fourth-color", "#E7E7E7");
+  document.documentElement.style.setProperty("--fifth-color", "#ffffff");
+});
 
 //Setting up variables for the conversion between °C and °F
 let celciusTemperature = null;
@@ -422,3 +523,4 @@ let minTemperature = null;
 
 //Search on load
 searchCity(`Bern`);
+changeColors();

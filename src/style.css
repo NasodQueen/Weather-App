@@ -1,47 +1,128 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+:root {
+  --first-color: #015c92;
+  --second-color: #2d82b5;
+  --third-color: #53a6d8;
+  --fourth-color: #88cdf6;
+  --fifth-color: #bce6ff;
+}
+
 body {
   font-family: "Poppins", sans-serif;
-  color: #015c92;
+  color: var(--first-color);
+  /* color: #85cbd9; */
 }
 
 .main-body {
-  background-color: #53a6d8;
   padding: 20px 30px;
   border-radius: 15px;
   position: relative;
   max-width: 1140px;
+  background-color: var(--third-color);
   /* box-shadow: 7px 7px rgba(1, 92, 146, 1); */
+}
+
+a {
+  color: var(--first-color);
+  transition: all 200ms ease;
+}
+
+a:hover {
+  color: var(--second-color);
+}
+
+.color-btn {
+  width: 100px;
+  margin: 5px 10px;
+  margin-top: 20px;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: bold;
+  transition: all 200ms ease;
+}
+
+#sunshine-btn {
+  color: #c73866;
+  border: 3px solid #fe676e;
+  box-shadow: 5px 5px #c73866;
+  background-color: #ffdca2;
+  transition: all 200ms ease;
+}
+#sunshine-btn:hover {
+  background-color: #ffbd71;
+  border: 3px solid #c73866;
+  color: #c73866;
+}
+
+#rain-btn {
+  color: #015c92;
+  border: 3px solid #2d82b5;
+  box-shadow: 5px 5px #015c92;
+  background-color: #bce6ff;
+  transition: all 200ms ease;
+}
+#rain-btn:hover {
+  background-color: #88cdf6;
+  border: 3px solid #015c92;
+  color: #015c92;
+}
+
+#cloudy-btn {
+  color: #4a707a;
+  border: 3px solid #7697a0;
+  box-shadow: 5px 5px #4a707a;
+  background-color: #ddddda;
+  transition: all 200ms ease;
+}
+#cloudy-btn:hover {
+  background-color: #c2c8c5;
+  border: 3px solid #4a707a;
+  color: #4a707a;
+}
+
+#snow-btn {
+  color: #9b9b9b;
+  border: 3px solid #b6b6b6;
+  box-shadow: 5px 5px #9b9b9b;
+  background-color: #ffffff;
+  transition: all 200ms ease;
+}
+#snow-btn:hover {
+  background-color: #e7e7e7;
+  border: 3px solid #9b9b9b;
+  color: #9b9b9b;
 }
 
 .btn-primary {
   margin: 5px 10px;
   border-radius: 50px;
   text-align: center;
-  background-color: #bce6ff;
-  color: #015c92;
   font-weight: bold;
-  border: 3px solid #2d82b5;
-  box-shadow: 5px 5px rgba(1, 92, 146, 1);
+  color: var(--first-color);
+  border: 3px solid var(--second-color);
+  box-shadow: 5px 5px var(--first-color);
+  background-color: var(--fifth-color);
+  transition: all 200ms ease;
 }
 
 .btn-primary:hover {
-  background-color: #88cdf6;
-  border: 3px solid #015c92;
-  color: #015c92;
+  background-color: var(--fourth-color);
+  border: 3px solid var(--first-color);
+  color: var(--first-color);
 }
 
 #inputCity {
-  background-color: #bce6ff;
-  color: #015c92;
-  border: 3px solid #2d82b5;
   font-weight: bold;
   max-width: 450px;
-  box-shadow: 5px 5px rgba(1, 92, 146, 1);
+  background-color: var(--fifth-color);
+  color: var(--first-color);
+  border: 3px solid var(--second-color);
+  box-shadow: 5px 5px var(--first-color);
 }
 
 #inputCity::placeholder {
-  color: #015c92;
+  color: var(--first-color);
 }
 
 .form-control {
@@ -68,14 +149,14 @@ body {
 
 h1 .bi {
   font-size: 115px;
-  background-color: #bce6ff;
-  color: #015c92;
-  border: 10px solid #015c92;
   border-radius: 50%;
   padding: 15px 27px;
   position: absolute;
   right: 20px;
   top: 25px;
+  background-color: var(--fifth-color);
+  color: var(--first-color);
+  border: 10px solid var(--first-color);
 }
 
 h1 {
@@ -99,10 +180,10 @@ i {
 .header {
   margin: 20px 0;
   margin-right: 25px;
-  background-color: #015c92;
-  color: #bce6ff;
   border-radius: 15px;
   min-height: 155px;
+  background-color: var(--first-color);
+  color: var(--fifth-color);
 }
 
 .header-notice {
@@ -127,10 +208,10 @@ i {
 .recentCities,
 .popularCities {
   padding: 10px 10px 10px 24px;
-  background-color: #bce6ff;
   border-radius: 50px;
   margin-right: 20px;
   max-width: 400px;
+  background-color: var(--fifth-color);
 }
 
 .bi-moon-fill {
@@ -138,18 +219,18 @@ i {
 }
 
 .additionalInfo {
-  background-color: #015c92;
-  color: #bce6ff;
   border-radius: 15px;
   padding: 12px 0 0 0;
   margin-top: 5px;
   line-height: 28px;
+  background-color: var(--first-color);
+  color: var(--fifth-color);
 }
 
 .additionalInfoColLeft {
   text-align: right;
-  border-right: 3px dotted #88cdf6;
   padding: 0 10px 0 0;
+  border-right: 3px dotted var(--fourth-color);
 }
 
 .additionalInfoColRight {
@@ -160,26 +241,26 @@ i {
   text-align: center;
   border-radius: 15px;
   border: none;
-  background-color: #88cdf6;
-  color: #015c92;
   margin-left: 10px;
   margin-right: 10px;
+  background-color: var(--fourth-color);
+  color: var(--first-color);
 }
 
 .card h5 {
   margin-bottom: 20px;
   font-weight: bold;
-  background-color: #53a6d8;
   border-radius: 15px;
   padding: 5px 0;
+  background-color: var(--third-color);
 }
 
 .card .bi {
   font-size: 40px;
-  background-color: #bce6ff;
-  border: 5px solid #2d82b5;
   border-radius: 50%;
   padding: 5px 13px;
+  background-color: var(--fifth-color);
+  border: 5px solid var(--second-color);
 }
 
 .card-text {
@@ -188,9 +269,9 @@ i {
 }
 
 hr {
-  border: 5px dashed #bce6ff;
   border-radius: 10px;
   margin: 25px 0;
+  border: 5px dashed var(--fifth-color);
 }
 
 .to-do {
@@ -216,7 +297,7 @@ hr {
   width: var(--width);
   height: var(--height);
   border-radius: var(--border-radius);
-  background-color: #015c92;
+  background-color: var(--first-color);
 }
 
 /* Change to color of the background after the switch has been toggled
@@ -233,20 +314,16 @@ hr {
   left: 0;
   height: var(--height);
   width: var(--height);
-  background-color: #53a6d8;
-  border: 3px solid #53a6d8;
   border-radius: var(--border-radius);
   transition: transform 0.2s;
+  background-color: var(--third-color);
+  border: 3px solid var(--third-color);
 }
 
 /* Moving the circle when switch has been toggled*/
 .toggle__input:checked ~ .toggle__fill::after {
   transform: translateX(var(--height));
 }
-
-/* .temperature-toggle-units {
-  font-weight: bold;
-} */
 
 #footer {
   margin-top: 30px;

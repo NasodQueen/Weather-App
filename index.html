@@ -18,144 +18,158 @@
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   </head>
   <body>
-    <div class="container">
-      <span class="to-do"> To do: </span>
-      <ul class="to-do">
-        <li>Create colors sets for different weather</li>
-        <li>
-          Create buttons to switch color sets/weather to for demonstration
-          purposes
-        </li>
-        <li>Add background colors/patterns</li>
-        <li>Create a light/dark mode with switch</li>
-        <li>Add switching icons depending on weather for forecast</li>
-        <li>Add color change mechanic according to current weather</li>
-        <li>Fix time zone issues</li>
-        <li>Add the mechanism to store recent user inputs (up to 3-ish)</li>
-        <li>Add popular cities as clickable links</li>
-        <li>Add forecast data</li>
-        <li>Add hover text for detailed info box</li>
-        <li>Maybe add weather alerts if I'm feeling fancy</li>
-      </ul>
-      <div class="main-body">
-        <div class="header row">
-          <div class="header-notice col-4">
-            <h3 id="header-notice-advice">
-              Make sure to bring an umbrella with you today!
-            </h3>
-          </div>
-          <div class="header-city-weather col-6">
-            <div class="header-city-weather-position">
-              <h1 id="city-name"></h1>
-              <h2 id="date-and-time"></h2>
-              <h2>
-                <span id="header-weather-text"></span> |
-                <span id="header-temperature-degrees"></span>
-                <span class="temp-unit">°C</span>
-              </h2>
+    <div class="background">
+      <div class="container">
+        <span class="to-do"> To do: </span>
+        <ul class="to-do">
+          <li>Add background colors/patterns</li>
+          <li>Create a light/dark mode with switch</li>
+          <li>Fix time zone issues</li>
+        </ul>
+        <div class="main-body">
+          <div class="header row">
+            <div class="header-notice col-4">
+              <h3 id="header-notice-advice"></h3>
             </div>
-          </div>
-          <div class="header-weather-icon col-2">
-            <h1><i id="header-icon" class="bi"></i></h1>
-          </div>
-        </div>
-        <div class="midBodyContainer row">
-          <div class="midBodyLeft col-9">
-            <form id="citySearchForm" class="row">
-              <div class="textInput col-7">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputCity"
-                  placeholder=" Enter a city..."
-                />
-              </div>
-              <button
-                type="submit"
-                id="search-button"
-                class="btn btn-primary col-2 p-2"
-              >
-                Search
-              </button>
-              <button
-                type="submit"
-                id="current-city-button"
-                class="btn btn-primary col-2 p-2"
-              >
-                Current
-              </button>
-            </form>
-            <div class="citiesRecentPopular row">
-              <div class="recentCities col">
-                <h4>Recently searched cities:</h4>
-                <span id="recentCitiesSpan"></span>
-              </div>
-              <div class="popularCities col">
-                <h4>Popular cities:</h4>
-                <a href="#" id="new-york-link">New York City</a>
-                <a href="#" id="paris-link">Paris</a>
-                <a href="#" id="tokyo-link">Tokyo</a>
+            <div class="header-city-weather col-6">
+              <div class="header-city-weather-position">
+                <h1 id="city-name"></h1>
+                <h2 id="date-and-time"></h2>
+                <h2>
+                  <span id="header-weather-text"></span> |
+                  <span id="header-temperature-degrees"></span>
+                  <span class="temp-unit">°C</span>
+                </h2>
               </div>
             </div>
-          </div>
-          <div class="additionalInfo col-3">
-            <div class="additionalInfoRow row">
-              <div class="additionalInfoColLeft col">
-                <span id="feels-like-temp"></span>
-                <span class="temp-unit">°C</span>
-                <i class="bi bi-thermometer-half"> </i><br />
-                <span id="max-temp"></span>
-                <span class="temp-unit">°C</span>
-                <span id="max-min-bar">|</span>
-                <span id="min-temp"></span>
-                <span class="temp-unit">°C</span>
-                <i class="bi bi-speedometer2"> </i> <br />
-                <span id="humidity"></span>% <i class="bi bi-moisture"> </i
-                ><br />
-              </div>
-              <div class="additionalInfoColRight col">
-                <i class="bi bi-wind"></i> <span id="wind-speed"></span>
-                <span id="wind-speed-unit">km/h</span> <br />
-                <i class="bi bi-sunrise-fill"> </i>
-                <span id="sunrise"></span><br />
-                <i class="bi bi-sunset-fill"> </i>
-                <span id="sunset"></span><br />
-              </div>
-              <i class="bi bi-moon-fill"><span id="lunar-phase"></span></i>
+            <div class="header-weather-icon col-2">
+              <h1><i id="header-icon" class="bi"></i></h1>
             </div>
           </div>
+          <div class="midBodyContainer row">
+            <div class="midBodyLeft col-9">
+              <form id="citySearchForm" class="row">
+                <div class="textInput col-7">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputCity"
+                    placeholder=" Enter a city..."
+                  />
+                </div>
+                <button
+                  type="submit"
+                  id="search-button"
+                  class="btn btn-primary col-2 p-2"
+                >
+                  Search
+                </button>
+                <button
+                  type="submit"
+                  id="current-city-button"
+                  class="btn btn-primary col-2 p-2"
+                >
+                  Current
+                </button>
+              </form>
+              <div class="citiesRecentPopular row">
+                <div class="recentCities col">
+                  <h4>Recently searched cities:</h4>
+                  <span id="recentCitiesSpan"></span>
+                </div>
+                <div class="popularCities col">
+                  <h4>Popular cities:</h4>
+                  <a href="#" id="new-york-link">New York</a>
+                  <a href="#" id="paris-link">Paris</a>
+                  <a href="#" id="london-link">London</a>
+                  <a href="#" id="tokyo-link">Tokyo</a>
+                  <a href="#" id="hong-kong-link">Hong Kong</a>
+                </div>
+              </div>
+            </div>
+            <div class="additionalInfo col-3">
+              <div class="additionalInfoRow row">
+                <div class="additionalInfoColLeft col">
+                  <span title="Feels like">
+                    <span id="feels-like-temp"></span>
+                    <span class="temp-unit">°C</span>
+                    <i class="bi bi-thermometer-half"> </i></span
+                  ><br />
+                  <span title="Max. | Min.">
+                    <span id="max-temp"></span>
+                    <span class="temp-unit">°C</span>
+                    <span id="max-min-bar">|</span>
+                    <span id="min-temp"></span>
+                    <span class="temp-unit">°C</span>
+                    <i class="bi bi-speedometer2"> </i> </span
+                  ><br />
+                  <span title="Humidity">
+                    <span id="humidity"></span>%
+                    <i class="bi bi-moisture"> </i></span
+                  ><br />
+                </div>
+                <div class="additionalInfoColRight col">
+                  <span title="Wind speed">
+                    <i class="bi bi-wind"></i> <span id="wind-speed"></span>
+                    <span id="wind-speed-unit">km/h</span> </span
+                  ><br />
+                  <span title="Sunrise">
+                    <i class="bi bi-sunrise-fill"> </i>
+                    <span id="sunrise"></span></span
+                  ><br />
+                  <span title="Sunset">
+                    <i class="bi bi-sunset-fill"> </i>
+                    <span id="sunset"></span></span
+                  ><br />
+                </div>
+                <i class="bi bi-moon-fill" title="Lunar phase"
+                  ><span id="lunar-phase" title="Lunar phase"></span
+                ></i>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div id="weather-forecast"></div>
         </div>
-        <hr />
-        <div id="weather-forecast"></div>
-      </div>
-      <form id="formSettings" class="row">
-        <div id="temperature-toggle" class="col-2">
-          <span class="temperature-toggle-units">°C</span>
-          <label class="toggle" name="" for="unitToggle">
-            <input
-              class="toggle__input"
-              type="checkbox"
-              id="unitToggle"
-              onclick="handleUnit()"
-            />
-            <div class="toggle__fill"></div>
-          </label>
-          <span class="temperature-toggle-units">°F</span>
-        </div>
-      </form>
-      <div id="footer">
-        <div id="footer-disclaimer">
-          This project was coded by Stephanie Zbinden and is
-          <a href="https://github.com/NasodQueen/Weather-App"
-            >open-sourced on GitHub</a
-          >
-          and <a href="https://www.netlify.com">hosted on Netlify</a>.
-        </div>
-        <div id="footer-music">
-          What I listened to while coding:
-          <a href="https://youtu.be/gd6nEquwuhM" target="_blank">
-            Interstellar (Chillwave - Retrowave - Electronic Mix)</a
-          >
+        <form id="formSettings">
+          <div id="temperature-toggle">
+            <span class="temperature-toggle-units">°C</span>
+            <label class="toggle" name="" for="unitToggle">
+              <input
+                class="toggle__input"
+                type="checkbox"
+                id="unitToggle"
+                onclick="handleUnit()"
+              />
+              <div class="toggle__fill"></div>
+            </label>
+            <span class="temperature-toggle-units">°F</span>
+          </div>
+          <div class="color-switch-buttons-container">
+            <button id="sunshine-btn" class="color-btn">Sunshine</button>
+            <button id="rain-btn" class="color-btn">Rain</button>
+            <button id="cloudy-btn" class="color-btn">Cloudy</button>
+            <button id="snow-btn" class="color-btn">Snow</button>
+          </div>
+        </form>
+        <div id="footer">
+          <div id="footer-disclaimer">
+            This Vanilla JavaScript project was coded by Stephanie Zbinden and
+            is
+            <a href="https://github.com/NasodQueen/Weather-App" target="_blank"
+              >open-sourced on GitHub</a
+            >
+            and
+            <a href="https://www.netlify.com" target="_blank"
+              >hosted on Netlify</a
+            >.
+          </div>
+          <div id="footer-music">
+            What I listened to while coding:
+            <a href="https://youtu.be/gd6nEquwuhM" target="_blank">
+              Interstellar (Chillwave - Retrowave - Electronic Mix)</a
+            >
+          </div>
         </div>
       </div>
     </div>
