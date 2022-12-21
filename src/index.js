@@ -480,40 +480,52 @@ function changeColors(weatherClass) {
 }
 
 let sunshineButton = document.querySelector("#sunshine-btn");
-sunshineButton.addEventListener("click", () => {
+sunshineButton.addEventListener("click", sunshineFunction);
+
+function sunshineFunction(event) {
+  event.preventDefault();
   document.documentElement.style.setProperty("--first-color", "#C73866");
   document.documentElement.style.setProperty("--second-color", "#FE676E");
   document.documentElement.style.setProperty("--third-color", "#FD8F52");
   document.documentElement.style.setProperty("--fourth-color", "#FFBD71");
   document.documentElement.style.setProperty("--fifth-color", "#FFDCA2");
-});
+}
 
 let rainButton = document.querySelector("#rain-btn");
-rainButton.addEventListener("click", () => {
+rainButton.addEventListener("click", rainFunction);
+
+function rainFunction(event) {
+  event.preventDefault();
   document.documentElement.style.setProperty("--first-color", "#015c92");
   document.documentElement.style.setProperty("--second-color", "#2d82b5");
   document.documentElement.style.setProperty("--third-color", "#53a6d8");
   document.documentElement.style.setProperty("--fourth-color", "#88cdf6");
   document.documentElement.style.setProperty("--fifth-color", "#bce6ff");
-});
+}
 
 let cloudyButton = document.querySelector("#cloudy-btn");
-cloudyButton.addEventListener("click", () => {
+cloudyButton.addEventListener("click", cloudFunction);
+
+function cloudFunction(event) {
+  event.preventDefault();
   document.documentElement.style.setProperty("--first-color", "#4A707A");
   document.documentElement.style.setProperty("--second-color", "#7697A0");
   document.documentElement.style.setProperty("--third-color", "#94B0B7");
   document.documentElement.style.setProperty("--fourth-color", "#C2C8C5");
   document.documentElement.style.setProperty("--fifth-color", "#DDDDDA");
-});
+}
 
 let snowButton = document.querySelector("#snow-btn");
-snowButton.addEventListener("click", () => {
+snowButton.addEventListener("click", snowFunction);
+
+function snowFunction(event) {
+  event.preventDefault();
   document.documentElement.style.setProperty("--first-color", "#9B9B9B");
   document.documentElement.style.setProperty("--second-color", "#B6B6B6");
   document.documentElement.style.setProperty("--third-color", "#D1D1D1");
   document.documentElement.style.setProperty("--fourth-color", "#E7E7E7");
   document.documentElement.style.setProperty("--fifth-color", "#ffffff");
-});
+}
 
 //Setting up variables for the conversion between °C and °F
 let celciusTemperature = null;
