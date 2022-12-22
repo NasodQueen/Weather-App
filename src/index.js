@@ -37,7 +37,6 @@ function formatForecastDay(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecast = response.data.daily;
 
   //Add day cards to the forecast and change the HTML
@@ -225,7 +224,6 @@ function getForecast(coordinates) {
 }
 
 function showWeather(response) {
-  console.log(response);
   //Get data & change HTML
   cityNameHTML.innerHTML = response.data.name;
   mainWeatherTextHTMl.innerHTML = response.data.weather[0].description;
@@ -242,7 +240,6 @@ function showWeather(response) {
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
   let timezone = response.data.timezone;
-  console.log(timezone);
   function convertSunrise() {
     let sunrise = new Date((sunriseUnix + timezone) * 1000);
     let sunriseHours = sunrise.getUTCHours();
@@ -276,11 +273,8 @@ function showWeather(response) {
   document.querySelector("#lunar-phase").innerHTML = getLunarPhase();
   //Get "main" weather to use for color changes
   let currentWeatherMain = response.data.weather[0].main;
-  console.log(currentWeatherMain);
   let currentWeatherID = String(response.data.weather[0].icon);
-  console.log(weatherSet[currentWeatherID].icon);
   let currentWeatherClass = weatherSet[currentWeatherID].class;
-  console.log(currentWeatherClass);
   changeColors(currentWeatherClass);
   //Remove any class for the icons that start with "bi-"
   let headerIcon = document.querySelector("#header-icon");
@@ -291,13 +285,11 @@ function showWeather(response) {
   });
   //Add the current weather icon
   headerIcon.classList.add(weatherSet[currentWeatherID].icon);
-  console.log(headerIcon.classList);
   getForecast(response.data.coord);
 }
 
 function searchCity(city) {
   let urlCitySearch = `${apiUrlBase}q=${city}&appid=${apiKey}&units=metric`;
-  console.log(urlCitySearch);
   axios.get(urlCitySearch).then(showWeather);
 }
 
@@ -309,7 +301,6 @@ function handleSubmit(event) {
     recentSearchArray.push(cityInput);
   }
   addRecentSearch(cityInput);
-  console.log(cityInput);
   searchCity(cityInput);
 }
 
@@ -323,9 +314,6 @@ function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let urlCurrentPosition = `${apiUrlBase}lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-  console.log(lon);
-  console.log(lat);
-  console.log(urlCurrentPosition);
   axios.get(urlCurrentPosition).then(showWeather);
 }
 
@@ -377,7 +365,6 @@ function handleUnit() {
 }
 
 let recentSearchArray = [];
-console.log(recentSearchArray.length);
 
 window.recentSearchLinkClick = function (obj) {
   searchCity(obj.innerHTML);
@@ -385,7 +372,6 @@ window.recentSearchLinkClick = function (obj) {
 
 function addRecentSearch(cityInput) {
   let cityInputNoSpaces = cityInput.replace(/[\s;]+/g, "-").toLowerCase();
-  console.log(cityInputNoSpaces);
   if (recentSearchArray.length < 4) {
     let template = recentSearchArray
       .map(
@@ -393,17 +379,13 @@ function addRecentSearch(cityInput) {
           `<a href="#" onclick="recentSearchLinkClick(this)" class="recent-search-link-${cityInputNoSpaces}">${city}</a>`
       )
       .join(` `);
-    console.log(recentSearchArray.indexOf(cityInput));
-    console.log(cityInput);
     document.querySelector("#recentCitiesSpan").innerHTML = template;
-    console.log(recentSearchArray.length);
   } else {
     recentSearchArray.shift();
     let template = recentSearchArray
       .map((city) => `<a href="#" class="recent-search-link">${city}</a>`)
       .join(` `);
     document.querySelector("#recentCitiesSpan").innerHTML = template;
-    console.log(recentSearchArray.length);
   }
 }
 
@@ -441,7 +423,6 @@ document
 function changeColors(weatherClass) {
   let currentWeatherClass = weatherClass;
   let headerText = document.querySelector("#header-notice-advice");
-  console.log(currentWeatherClass);
   if (currentWeatherClass === "sunshine") {
     document.documentElement.style.setProperty("--first-color", "#C73866");
     document.documentElement.style.setProperty("--second-color", "#FE676E");
