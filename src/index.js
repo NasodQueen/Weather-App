@@ -241,17 +241,15 @@ function showWeather(response) {
   windHTML.innerHTML = Math.round(response.data.wind.speed * 3.6);
   //Sunrise
   let sunriseUnix = response.data.sys.sunrise;
-  let timezoneOffset = response.data.timezone * 1000;
-  console.log(timezoneOffset);
+  let timezone = response.data.timezone;
+  console.log(timezone);
   function convertSunrise() {
-    let sunriseTime = new Date(sunriseUnix * 1000);
-    let sunriseString = sunriseTime.toLocaleTimeString();
-    console.log(sunriseString);
-    let sunriseHours = sunriseTime.getHours();
+    let sunrise = new Date((sunriseUnix + timezone) * 1000);
+    let sunriseHours = sunrise.getUTCHours();
     if (sunriseHours < 10) {
       sunriseHours = `0${sunriseHours}`;
     }
-    let sunriseMinutes = sunriseTime.getMinutes();
+    let sunriseMinutes = sunrise.getUTCMinutes();
     if (sunriseMinutes < 10) {
       sunriseMinutes = `0${sunriseMinutes}`;
     }
@@ -262,12 +260,12 @@ function showWeather(response) {
   //Sunset
   let sunsetUnix = response.data.sys.sunset;
   function convertSunset() {
-    let sunsetTime = new Date(sunsetUnix * 1000);
-    let sunsetHours = sunsetTime.getHours();
+    let sunsetTime = new Date((sunsetUnix + timezone) * 1000);
+    let sunsetHours = sunsetTime.getUTCHours();
     if (sunsetHours < 10) {
       sunsetHours = `0${sunsetHours}`;
     }
-    let sunsetMinutes = sunsetTime.getMinutes();
+    let sunsetMinutes = sunsetTime.getUTCMinutes();
     if (sunsetMinutes < 10) {
       sunsetMinutes = `0${sunsetMinutes}`;
     }

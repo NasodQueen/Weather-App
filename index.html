@@ -20,12 +20,6 @@
   <body>
     <div class="background">
       <div class="container">
-        <span class="to-do"> To do: </span>
-        <ul class="to-do">
-          <li>Add background colors/patterns</li>
-          <li>Create a light/dark mode with switch</li>
-          <li>Fix time zone issues</li>
-        </ul>
         <div class="main-body">
           <div class="header row">
             <div class="header-notice col-4">
@@ -130,45 +124,53 @@
           </div>
           <hr />
           <div id="weather-forecast"></div>
+          <form id="formSettings">
+            <div id="temperature-toggle">
+              <span class="temperature-toggle-units">°C</span>
+              <label class="toggle" name="" for="unitToggle">
+                <input
+                  class="toggle__input"
+                  type="checkbox"
+                  id="unitToggle"
+                  onclick="handleUnit()"
+                />
+                <div class="toggle__fill"></div>
+              </label>
+              <span class="temperature-toggle-units">°F</span>
+            </div>
+          </form>
         </div>
-        <form id="formSettings">
-          <div id="temperature-toggle">
-            <span class="temperature-toggle-units">°C</span>
-            <label class="toggle" name="" for="unitToggle">
-              <input
-                class="toggle__input"
-                type="checkbox"
-                id="unitToggle"
-                onclick="handleUnit()"
-              />
-              <div class="toggle__fill"></div>
-            </label>
-            <span class="temperature-toggle-units">°F</span>
-          </div>
+        <div class="row">
           <div class="color-switch-buttons-container">
+            <div class="color-switch-buttons-description">
+              Color palette showcase:
+            </div>
             <button id="sunshine-btn" class="color-btn">Sunshine</button>
             <button id="rain-btn" class="color-btn">Rain</button>
             <button id="cloudy-btn" class="color-btn">Cloudy</button>
             <button id="snow-btn" class="color-btn">Snow</button>
           </div>
-        </form>
-        <div id="footer">
-          <div id="footer-disclaimer">
-            This Vanilla JavaScript project was coded by Stephanie Zbinden and
-            is
-            <a href="https://github.com/NasodQueen/Weather-App" target="_blank"
-              >open-sourced on GitHub</a
-            >
-            and
-            <a href="https://www.netlify.com" target="_blank"
-              >hosted on Netlify</a
-            >.
-          </div>
-          <div id="footer-music">
-            What I listened to while coding:
-            <a href="https://youtu.be/gd6nEquwuhM" target="_blank">
-              Interstellar (Chillwave - Retrowave - Electronic Mix)</a
-            >
+          <div id="footer">
+            <div id="footer-disclaimer">
+              This Vanilla JavaScript project was coded by Stephanie Zbinden.
+              <br />
+              It is
+              <a
+                href="https://github.com/NasodQueen/Weather-App"
+                target="_blank"
+                >open-sourced on GitHub</a
+              >
+              and
+              <a href="https://www.netlify.com" target="_blank"
+                >hosted on Netlify</a
+              >.
+            </div>
+            <div id="footer-music">
+              What I listened to while coding:
+              <a href="https://youtu.be/gd6nEquwuhM" target="_blank">
+                Interstellar (Chillwave - Retrowave - Electronic Mix)</a
+              >
+            </div>
           </div>
         </div>
       </div>

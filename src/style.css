@@ -12,9 +12,15 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--first-color);
   /* color: #85cbd9; */
+  background-color: var(--fifth-color);
+  background-image: radial-gradient(var(--first-color) 1.6px, transparent 1.6px),
+    radial-gradient(var(--first-color) 1.6px, var(--fifth-color) 1.6px);
+  background-size: 64px 64px;
+  background-position: 0 0, 32px 32px;
 }
 
 .main-body {
+  margin-top: 75px;
   padding: 20px 30px;
   border-radius: 15px;
   position: relative;
@@ -35,7 +41,6 @@ a:hover {
 .color-btn {
   width: 100px;
   margin: 5px 10px;
-  margin-top: 20px;
   border-radius: 50px;
   text-align: center;
   font-weight: bold;
@@ -278,6 +283,10 @@ hr {
   font-size: 12px;
 }
 
+.temperature-toggle-units {
+  color: var(--fifth-color);
+}
+
 .toggle {
   margin-top: 20px;
   --width: 40px;
@@ -316,8 +325,8 @@ hr {
   width: var(--height);
   border-radius: var(--border-radius);
   transition: transform 0.2s;
-  background-color: var(--third-color);
-  border: 3px solid var(--third-color);
+  background-color: var(--fifth-color);
+  border: 3px solid var(--fifth-color);
 }
 
 /* Moving the circle when switch has been toggled*/
@@ -325,7 +334,23 @@ hr {
   transform: translateX(var(--height));
 }
 
+.color-switch-buttons-container {
+  display: inline block;
+  margin-top: 15px;
+  margin-left: 12px;
+  margin-right: 14px;
+  padding: 10px;
+  background-color: var(--third-color);
+  width: 515px;
+  border-radius: 15px;
+}
+
 #footer {
-  margin-top: 30px;
-  font-size: 12px;
+  display: inline block;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: var(--third-color);
+  width: 611px;
+  border-radius: 15px;
+  font-size: 14px;
 }
